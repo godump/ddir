@@ -10,7 +10,7 @@ def call(command):
 
 
 def main():
-    call('go install github.com/mohanson/ddir')
+    call('go install github.com/godump/ddir')
 
 
 if __name__ == '__main__':

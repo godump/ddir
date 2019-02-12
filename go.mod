@@ -1,1 +1,1 @@
-module github.com/mohanson/ddir
+module github.com/godump/ddir

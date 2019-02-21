@@ -6,6 +6,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"runtime"
+	"strings"
 )
 
 var (
@@ -69,7 +70,7 @@ func autoMakeDefault(elem ...string) {
 	seps := []string{}
 	seps = append(seps, u.HomeDir)
 	seps = append(seps, elem...)
-	seps[1] = "." + seps[1]
+	seps[1] = "." + strings.ToLower(seps[1])
 	Base(filepath.Join(seps...))
 }
 

@@ -7,6 +7,7 @@ import "github.com/godump/ddir"
 ```
 
 - [Example](#Example)
+- [Auto](#Auto)
 
 # Example
 
@@ -28,3 +29,14 @@ Get absolute path `/tmp/play/bar` by given elems:
 name = ddir.Join("bar")
 ...
 ```
+
+# Auto
+
+Auto is an automatic Base function call affected by the operating system. Most applications' data directories follow the operating system's specifications, for example, the data directory of vim is placed in ~/.vim.
+
+```go
+ddir.Auto("Play")
+```
+
+- Equals with `Base("~/AppData/Local/Play")` on windows
+- Equals with `Base("~/.play")` on linux

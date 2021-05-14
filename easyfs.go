@@ -13,7 +13,7 @@ var (
 // Base sets base data path. This should be called from a binary's init or main function.
 func Base(name string) {
 	if done {
-		panic("res: call Base() multiple times")
+		panic("easyfs: call multiple times")
 	}
 	if name == "" {
 		base, _ = filepath.Abs(".")
@@ -34,8 +34,8 @@ func BaseExec() {
 }
 
 // Path joins any number of path elements into a single path, adding a Separator if necessary.
-func Path(name string) string {
-	return filepath.Join(base, name)
+func Path(name ...string) string {
+	return filepath.Join(append([]string{base}, name...)...)
 }
 
 // Make ensures the directory structure. If folder doesn’t exist, create it.
@@ -44,11 +44,12 @@ func Path(name string) string {
 //   Base("/tmp")
 //   Make("/data0") // make /tmp/data0 if it doesn't exist
 //   Make("/data1") // make /tmp/data1 if it doesn't exist
-func Make(name string) {
-	if _, err := os.Stat(Path(name)); err == nil || os.IsExist(err) {
+func Make(name ...string) {
+	p := Path(name...)
+	if _, err := os.Stat(p); err == nil {
 		return
 	}
-	if err := os.MkdirAll(Path(name), 0755); err != nil {
-		panic(err)
+	if os.MkdirAll(p, 0755) != nil {
+		panic("easyfs: cannot create directory")
 	}
 }
